@@ -1,20 +1,25 @@
 package silva.jhonatan.springboot2.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import silva.jhonatan.springboot2.domain.Anime;
+import silva.jhonatan.springboot2.service.AnimeService;
 import silva.jhonatan.springboot2.util.DateUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Onde estão só os end points
+ */
 @RestController
-@RequestMapping("anime")
+@RequestMapping("animes")
 @Log4j2
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AnimeController {
     /**
      * Autowired para fazer injeção de dependência
@@ -24,12 +29,13 @@ public class AnimeController {
      * ou usar RequiredArgsConstructor que irá criar um constructor com os campos que são finais
      * mas o mais correto seria criar uma interface
      */
-    private DateUtil dateUtil;
+    private final DateUtil dateUtil;
+    private final AnimeService animeService;
 
-    @GetMapping(path = "list")
+    @GetMapping
     public List<Anime> list() {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return List.of(new Anime("One punch man"), new Anime("One piece"));
+        return animeService.listAll();
     }
 
 }

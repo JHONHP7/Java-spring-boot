@@ -66,5 +66,18 @@ public class AnimeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Atualizar anime, recebendo um anime inteiro com id e nome
+     *
+     * @param anime
+     * @return
+     */
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody Anime anime) {
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        animeService.replace(anime);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }

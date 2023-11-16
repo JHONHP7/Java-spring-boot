@@ -24,7 +24,6 @@ public class AnimeService {
     /**
      * To do
      * private final AnimeRepository animeRepository
-     *
      * @return
      */
     public List<Anime> listAll() {

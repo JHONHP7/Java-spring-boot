@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    #CURSO SPRING DEVDOJO BANCO DE DADOS
+    url: jdbc:h2:file:C:/Temp/springBoot2-curso/criadoPeloSite/arquivos-banco-2-mockado/springCurso
+    username: sa
+    password:
+
+  h2:
+    console:
+      #enabled: true
+      path: /h2-console
+      settings.trace: false
+      settings.web-allow-others: false
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        format_sql: true
+        #default_schema: springCurso
+    hibernate:
+      ddl-auto: update

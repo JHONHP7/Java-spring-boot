@@ -1,0 +1,8 @@
+server:
+  error:
+    include-stacktrace: on_param
+spring:
+  profiles:
+    active: test
+  jpa:
+    open-in-view: true

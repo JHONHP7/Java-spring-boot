@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import silva.jhonatan.springboot2.domain.Anime;
+import silva.jhonatan.springboot2.mapper.AnimeMapper;
 import silva.jhonatan.springboot2.repository.AnimeRepository;
 import silva.jhonatan.springboot2.requests.AnimePostRequestBody;
 import silva.jhonatan.springboot2.requests.AnimePutRequestBody;
@@ -47,7 +48,8 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+        AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(Long id) {
@@ -56,10 +58,9 @@ public class AnimeService {
 
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
-        Anime savecAnime = findbyidOrThrowBadRequestException(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(savecAnime.getId())
-                .name(animePutRequestBody.getName()).build();
+        Anime savedAnime = findbyidOrThrowBadRequestException(animePutRequestBody.getId());
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(savedAnime.getId());
         animeRepository.save(anime);
     }
 }

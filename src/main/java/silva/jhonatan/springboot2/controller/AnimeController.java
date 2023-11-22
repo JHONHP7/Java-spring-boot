@@ -22,63 +22,68 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor
 public class AnimeController {
-    /**
-     * Autowired para fazer injeção de dependência
-     * mas não é recomendado via campos
-     * e sim via constructor
-     * podemos isntanciar o constructor ou usar a anotação do lombok par isso
-     * ou usar RequiredArgsConstructor que irá criar um constructor com os campos que são finais
-     * mas o mais correto seria criar uma interface
-     */
-    private final DateUtil dateUtil;
-    private final AnimeService animeService;
+	/**
+	 * Autowired para fazer injeção de dependência mas não é recomendado via campos
+	 * e sim via constructor podemos isntanciar o constructor ou usar a anotação do
+	 * lombok par isso ou usar RequiredArgsConstructor que irá criar um constructor
+	 * com os campos que são finais mas o mais correto seria criar uma interface
+	 */
+	private final DateUtil dateUtil;
+	private final AnimeService animeService;
 
-    @GetMapping
-    public ResponseEntity<List<Anime>> list() {
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        /**
-         * Posso retornar o status da requisição
-         * Usando return new ResponseEntity<>(animeService.listAll(), HttpStatus.OK);
-         * Ou usando
-         */
-        return ResponseEntity.ok(animeService.listAll());
-    }
+	@GetMapping
+	public ResponseEntity<List<Anime>> list() {
+		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+		/**
+		 * Posso retornar o status da requisição Usando return new
+		 * ResponseEntity<>(animeService.listAll(), HttpStatus.OK); Ou usando
+		 */
+		return ResponseEntity.ok(animeService.listAll());
+	}
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<Anime> findById(@PathVariable Long id) {
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        /**
-         * Posso retornar o status da requisição
-         * Usando return new ResponseEntity<>(animeService.listAll(), HttpStatus.OK);
-         * Ou usando
-         */
-        return ResponseEntity.ok(animeService.findbyidOrThrowBadRequestException(id));
-    }
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<Anime> findById(@PathVariable Long id) {
+		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+		/**
+		 * Posso retornar o status da requisição Usando return new
+		 * ResponseEntity<>(animeService.listAll(), HttpStatus.OK); Ou usando
+		 */
+		return ResponseEntity.ok(animeService.findbyidOrThrowBadRequestException(id));
+	}
 
-    @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
-        return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
-    }
+	@GetMapping(path = "/find")
+	public ResponseEntity<List<Anime>> findByName(@RequestParam String name) {
+		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+		/**
+		 * Posso retornar o status da requisição Usando return new
+		 * ResponseEntity<>(animeService.listAll(), HttpStatus.OK); Ou usando
+		 */
+		return ResponseEntity.ok(animeService.findByName(name));
+	}
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        animeService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+	@PostMapping
+	public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
+		return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
+	}
 
-    /**
-     * Atualizar anime, recebendo um anime inteiro com id e nome
-     *
-     * @param anime
-     * @return
-     */
-    @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody) {
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        animeService.replace(animePutRequestBody);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+		animeService.delete(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
+	/**
+	 * Atualizar anime, recebendo um anime inteiro com id e nome
+	 *
+	 * @param anime
+	 * @return
+	 */
+	@PutMapping
+	public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody) {
+		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+		animeService.replace(animePutRequestBody);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 }

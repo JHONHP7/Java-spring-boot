@@ -10,6 +10,6 @@ import java.util.List;
  * todas as querys nessa interface
  */
 public interface AnimeRepository extends JpaRepository<Anime, Long> {
-    List<Anime> listAll();
+    List<Anime> findAll();
 }
 

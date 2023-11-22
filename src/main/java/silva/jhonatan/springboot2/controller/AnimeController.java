@@ -51,6 +51,12 @@ public class AnimeController {
 		return ResponseEntity.ok(animeService.findbyidOrThrowBadRequestException(id));
 	}
 
+	/**
+	 * Para usar o param 
+	 * http://localhost:8080/animes/find?name=Boku no hero
+	 * @param name
+	 * @return
+	 */
 	@GetMapping(path = "/find")
 	public ResponseEntity<List<Anime>> findByName(@RequestParam String name) {
 		log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));

@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import silva.jhonatan.springboot2.domain.Anime;
+import silva.jhonatan.springboot2.requests.AnimePostRequestBody;
+import silva.jhonatan.springboot2.requests.AnimePutRequestBody;
 import silva.jhonatan.springboot2.service.AnimeService;
 import silva.jhonatan.springboot2.util.DateUtil;
 
@@ -50,12 +52,12 @@ public class AnimeController {
          * Usando return new ResponseEntity<>(animeService.listAll(), HttpStatus.OK);
          * Ou usando
          */
-        return ResponseEntity.ok(animeService.findById(id));
+        return ResponseEntity.ok(animeService.findbyidOrThrowBadRequestException(id));
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime) {
-        return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
+        return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -72,9 +74,9 @@ public class AnimeController {
      * @return
      */
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Anime anime) {
+    public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody) {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        animeService.replace(anime);
+        animeService.replace(animePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

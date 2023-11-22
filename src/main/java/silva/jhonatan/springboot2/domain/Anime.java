@@ -1,6 +1,7 @@
 package silva.jhonatan.springboot2.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Anime implements Serializable {
     private static final long serialVersionUID = -2890017292817658315L;
     @Id

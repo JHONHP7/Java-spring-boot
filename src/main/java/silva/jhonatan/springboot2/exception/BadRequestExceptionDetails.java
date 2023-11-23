@@ -1,16 +1,10 @@
 package silva.jhonatan.springboot2.exception;
 
-import java.time.LocalDateTime;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
-import lombok.Builder;
-import lombok.Data;
+@Setter
+@SuperBuilder
+public class BadRequestExceptionDetails extends ExceptionDetails{
 
-@Data
-@Builder
-public class BadRequestExceptionDetails {
-	private String title;
-	private int status;
-	private String details;
-	private String developerMessage;
-	private LocalDateTime timetamp;
 }

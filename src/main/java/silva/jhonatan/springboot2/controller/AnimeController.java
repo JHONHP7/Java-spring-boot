@@ -1,18 +1,29 @@
 package silva.jhonatan.springboot2.controller;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import silva.jhonatan.springboot2.domain.Anime;
 import silva.jhonatan.springboot2.requests.AnimePostRequestBody;
 import silva.jhonatan.springboot2.requests.AnimePutRequestBody;
 import silva.jhonatan.springboot2.service.AnimeService;
 import silva.jhonatan.springboot2.util.DateUtil;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Onde estão só os end points
@@ -52,8 +63,8 @@ public class AnimeController {
 	}
 
 	/**
-	 * Para usar o param 
-	 * http://localhost:8080/animes/find?name=Boku no hero
+	 * Para usar o param http://localhost:8080/animes/find?name=Boku no hero
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -68,7 +79,7 @@ public class AnimeController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody) {
+	public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody) {
 		return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
 	}
 

@@ -13,6 +13,8 @@ import silva.jhonatan.springboot2.requests.AnimePutRequestBody;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 /**
  * Onde fazemos as regras de negócio
  */
@@ -50,7 +52,8 @@ public class AnimeService {
 		return animeRepository.findById(id)
 				.orElseThrow(() -> new BadRequestException("Anime not found"));
 	}
-
+	
+	@Transactional
 	public Anime save(AnimePostRequestBody animePostRequestBody) {
 		AnimeMapper.INSTANCE.toAnime(animePostRequestBody);
 		return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));

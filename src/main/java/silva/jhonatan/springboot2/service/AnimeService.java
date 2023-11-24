@@ -1,19 +1,20 @@
 package silva.jhonatan.springboot2.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
+import lombok.RequiredArgsConstructor;
 import silva.jhonatan.springboot2.domain.Anime;
 import silva.jhonatan.springboot2.exception.BadRequestException;
 import silva.jhonatan.springboot2.mapper.AnimeMapper;
 import silva.jhonatan.springboot2.repository.AnimeRepository;
 import silva.jhonatan.springboot2.requests.AnimePostRequestBody;
 import silva.jhonatan.springboot2.requests.AnimePutRequestBody;
-
-import java.util.List;
-
-import javax.transaction.Transactional;
 
 /**
  * Onde fazemos as regras de negócio
@@ -29,8 +30,8 @@ public class AnimeService {
 	 *
 	 * @return
 	 */
-	public List<Anime> listAll() {
-		return animeRepository.findAll();
+	public Page<Anime> listAll(Pageable pageable) {
+		return animeRepository.findAll(pageable);
 	}
 
 	public List<Anime> findByName(String name) {
